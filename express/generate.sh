@@ -6,32 +6,36 @@ print_divider() {
   echo "==========================================="
 }
 
+check_project_home_dir() {
+  printf "Checking if projects directory exists in home directory..."
+  if [ -d $HOME/Projects ]; then
+    echo " Success"
+    create_project_dir
+  else
+    echo "Projects subdirectory does not exist! Exiting..."
+    exit 1
+  fi
+}
+
 create_project_dir() {
-  echo "Node/Express boilerplate generator"
   print_divider
   while [ -z $project_name ]; do
-    echo "Project name (no spaces):"
+    printf "Project name (no spaces): "
     read project_name
   done
-  if [ -d ~/Projects ]; then
-    if [ ! -d $HOME/Projects/$project_name ]; then
-      cd ~/Projects
-      mkdir $project_name
-      if [ -d $project_name ]; then
-        echo "Created directory: $project_target_dir"
-        build_project
-      else
-        echo "Failed to create project directory! Exiting..."
-        exit 1
-      fi
+  if [ ! -d $HOME/Projects/$project_name ]; then
+    cd $HOME/Projects
+    mkdir $project_name
+    if [ -d $project_name ]; then
+      echo "Created directory: $project_target_dir"
+      build_project
     else
-      echo "Project directory already exists! Exiting..."
+      echo "Failed to create project directory! Exiting..."
       exit 1
     fi
   else
-    if [ -d ~/Projects ]; then
-      echo "Projects sub-directory exists in home directory"
-    fi
+    echo "Project directory already exists! Exiting..."
+    exit 1
   fi
 }
 
@@ -42,12 +46,12 @@ build_project() {
     print_divider
     yarnpkg init;
     print_divider
-    echo "Creating index.js...\n"
+    printf "Creating index.js..."
     touch index.js
-    echo "\tDone"
-    echo "Installing Express and Nodemon...\n"
+    echo " Done"
+    printf "Installing Express and Nodemon..."
     yarnpkg add express nodemon;
-    echo "\tDone"
+    echo " Done"
     if [ -e $HOME/Projects/$project_name/package.json ]; then
       package_json_pointer=$HOME/Projects/$project_name/package.json
       updated_package_json=`jq '. += {"type": "module", "scripts": {"start": "node ./index.js", "dev": "nodemon index.js"}}' $HOME/Projects/$project_name/package.json`
@@ -74,4 +78,4 @@ if [ ! -e /usr/bin/jq ]; then
   echo "jq not installed! Exiting..."
   exit 1
 fi
-create_project_dir
+check_project_home_dir
