@@ -3,86 +3,9 @@ import sys
 import numpy
 import json
 
-
-DEPENDENCIES = {
-  'jq': {
-    'linux': '/usr/bin/jq'
-  },
-  'yarn': {
-    'linux': '/usr/bin/yarnpkg'
-  }
-}
-
-CONFIG_PATH = os.getenv('HOME') + '/.config/marble.config.json'
-FRAMEWORKS = ['express', 'react', 'vue']
-
-'''
-Flag code:
--1  Expecting indefinite number of values
-0   Not expecting value
->0  Expecting fixed number of values
-'''
-FLAGS = {
-  'general': {
-    '--ping': 0,    # Test flag that skips directory generation
-    '--debug': 0,
-    '--install-packages': -1
-  },
-  'frameworks': {
-    'express': {
-      '--use-nodemon': 0,
-      '--use-express-session': 0
-    }
-  }
-}
-
-
-class Generator:
-  def __init__(self, id, properties, flags: {}):
-    self.id = id
-    self.properties = properties
-    self.flags = flags
-
-
-class ExpressGenerator(Generator):
-  def __init__(self, config, properties, flags):
-    Generator.__init__(self, 'express', properties, flags)
-    self.config = config
-    self.project_path = ''
-  
-  def main(self) -> int:
-    if '--ping' in self.flags:
-      print("Debug mode exits before project directory creation")
-      exit(0)
-
-    # Validate project properties
-    if len(self.properties['name']) == 0:
-      print("Project name is empty")
-      exit(1)
-    try:
-      self.project_path = self.config['properties']['projects_directory'] + '/' + self.properties['name']
-      if os.path.exists(self.project_path):
-        print("Project directory already exists")
-        exit(1)
-    except:
-      print("Project configuration or properties unreadable")
-      exit(1)
-
-    # Build project
-    if os.path.exists(self.config['properties']['projects_directory']):
-      try:
-        os.mkdir(self.project_path)
-      except:
-        print("Unable to create project directory")
-        exit(1)
-      os.chdir(self.project_path)
-      os.system("touch hello_world.txt")
-      os.system("echo 'Hello world!' > hello_world.txt")
-    else:
-      print("Unable to find projects directory")
-      exit(1)
-    
-    exit(0)
+from globals import *
+from generator import Generator
+from frameworks.express_generator import ExpressGenerator
 
 
 class App:
