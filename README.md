@@ -1,5 +1,7 @@
-# Boilerplate generators
-This repository contains boilerplate generators for numerous types of projects (mostly web development). These will create the project directory, setup the build environment, and install packages/libraries.
+# Marble
+> **NOTE:** Marble is under active development. It currently only supports creating Express projects using a shell script. See the `marblepy` directory for progress on the *unified version* of Marble that will support numerous frameworks.
+
+Marble is a tool to generate templates for numerous types of projects (mostly web development). These will create the project directory, setup the build environment, and install packages/libraries.
 
 The generators are currently intended for use on Linux only (it relies on UNIX shell tools like jq). Compatibility with macOS and Windows to be implemented and tested at a later date.
 
