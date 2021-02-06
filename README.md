@@ -25,12 +25,9 @@ Example:
 python3 marblepy/main.py express todo-list-app --use-nodemon
 ```
 
-## Currently supported project types
-- Express
-
-## TODO
-
-### Future project types
+## Roadmap
+### Framework support
+- [x] Express
 - [ ] Express (+ Mocha test framework option)
 - [ ] Vue (+ router option)
 - [ ] React (+ router option)
@@ -38,10 +35,10 @@ python3 marblepy/main.py express todo-list-app --use-nodemon
 - [ ] Spring framework (with Maven or Gradle)
 
 ### Features
-- [ ] Switch to generic generator script; run child script or JSON file for each project type.
+- [x] Switch to generic generator script; run child script or JSON file for each project type.
 - [ ] Consolidate all generators into menu-based tool.
-- [ ] Ncurses (TUI) menu.
-- [ ] Optional project name and directory path parameters.
+- [ ] ~~Ncurses (TUI) menu.~~
+- [x] Optional project name and directory path parameters.
 - [ ] Predefined package config metadata (e.g. author, license, etc).
 - [ ] Flag to toggle router packages when initialising frontend projects.
 - [ ] Flag or optional parameter for automatic `git` repository initialisation.
