@@ -11,18 +11,18 @@ The generators are currently intended for use on Linux only (it relies on UNIX s
 A configuration file is necessary to determine where your projects are generated in. Options like preferred package manager and default packages are not implemented yet.
 
 ```
-python3 main.py --generate-config
+python3 marblepy/main.py --generate-config
 ```
 
 ### Generate a project
 General format for project generation:
 ```
-python3 main.py [framework] [project_name] [...flags]
+python3 marblepy/main.py [framework] [project_name] [...flags]
 ```
 
 Example:
 ```
-python3 main.py express todo-list-app --use-nodemon
+python3 marblepy/main.py express todo-list-app --use-nodemon
 ```
 
 ## Currently supported project types
