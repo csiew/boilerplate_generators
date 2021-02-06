@@ -7,8 +7,7 @@ from generator import Generator
 
 class ExpressGenerator(Generator):
   def __init__(self, config, properties, flags):
-    Generator.__init__(self, 'express', properties, flags)
-    self.config = config
+    Generator.__init__(self, 'express', config, properties, flags)
     self.project_path = ''
   
   def generate_index_js(self) -> bool:
