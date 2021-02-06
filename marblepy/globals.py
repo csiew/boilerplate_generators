@@ -13,7 +13,7 @@ DEPENDENCIES = {
 }
 
 CONFIG_PATH = os.getenv('HOME') + '/.config/marble.config.json'
-FRAMEWORKS = ['express', 'react', 'vue']
+FRAMEWORKS = ['express']
 
 '''
 Flag code:
