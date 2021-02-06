@@ -25,12 +25,21 @@ Example:
 python3 marblepy/main.py express todo-list-app --use-nodemon
 ```
 
+### Flags
+| Framework | Flag | Value | Description |
+|-----|-----|-----|-----|
+| `express` | `--use-nodemon`           | *none*  | Install and enable `nodemon` for automatic runtime restarts when making changes to source code. |
+|           | `--use-express-session`   | *none*  | Install `express-session` to enable login sessions for your app. |
+| `react`   | `--use-react-router-dom`  | *none*  | Install and enable `react-router-dom`. |
+|           | `--use-material-ui`       | *none*  | Install `@material-ui/core` for Material UI. |
+|           |                           | `icons` | Install `@material-ui/icons` for Material UI icons. |
+
 ## Roadmap
 ### Framework support
-- [x] Express
-- [ ] Express (+ Mocha test framework option)
+> **NOTE:** Support for packages other than those that could be enabled using flags has not been implemented yet.
+- [x] Express (+ Mocha test framework option) [***In progress***]
 - [ ] Vue (+ router option)
-- [ ] React (+ router option)
+- [x] React (+ router option) [***In progress***]
 - [ ] Electron
 - [ ] Spring framework (with Maven or Gradle)
 

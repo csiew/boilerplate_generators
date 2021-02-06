@@ -5,6 +5,7 @@ import json
 from globals import *
 from generator import Generator
 from frameworks.express_generator import ExpressGenerator
+from frameworks.react_generator import ReactGenerator
 
 
 class App:
@@ -128,6 +129,8 @@ class App:
       self.process_flags(flag_args)
       if self.framework == 'express':
         exit(ExpressGenerator(self.config, self.properties, self.flags).main())
+      elif self.framework == 'react':
+        exit(ReactGenerator(self.config, self.properties, self.flags).main())
     else:
       self.print_usage()
       exit(1)

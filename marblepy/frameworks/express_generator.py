@@ -34,7 +34,7 @@ class ExpressGenerator(Generator):
     
     return True
   
-  def node_project_init(self) -> bool:
+  def project_init(self) -> bool:
     package_json_content = None
 
     # Initialise Node project
@@ -51,6 +51,8 @@ class ExpressGenerator(Generator):
       proc_pkg_install = subprocess.Popen(pkg_install_cmd)
       proc_pkg_install.wait()
 
+      # TODO: Deposit README instructions for completing setup of express-session
+
       # Install additional packages
       # TODO: Get package names from "--install-packages" flag
 
@@ -58,13 +60,11 @@ class ExpressGenerator(Generator):
       with open(os.path.join(self.project_path, 'package.json'), 'r') as f_package_json:
         package_json_content = json.load(f_package_json)
         package_json_content['type'] = 'module'
-
         if '--use-nodemon' in self.flags:
           package_json_content['scripts'] = {
             "start": "node ./index.js",
             "dev": "nodemon index.js"
           }
-
       f_package_json.close()
 
       # Write back to package.json
@@ -109,7 +109,7 @@ class ExpressGenerator(Generator):
 
     if self.generate_index_js() == False:
       exit(1)
-    if self.node_project_init() == False:
+    if self.project_init() == False:
       exit(1)
     
     print("Express project template generated")

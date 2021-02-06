@@ -13,7 +13,7 @@ DEPENDENCIES = {
 }
 
 CONFIG_PATH = os.getenv('HOME') + '/.config/marble.config.json'
-FRAMEWORKS = ['express']
+FRAMEWORKS = ['express', 'react']
 
 '''
 Flag code:
@@ -31,6 +31,10 @@ FLAGS = {
     'express': {
       '--use-nodemon': 0,
       '--use-express-session': 0
+    },
+    'react': {
+      '--use-react-router-dom': 0,
+      '--use-material-ui': 1
     }
   }
 }
@@ -39,5 +43,9 @@ FRAMEWORK_PACKAGE_FLAGS = {
   'express': {
     '--use-nodemon': 'nodemon',
     '--use-express-session': 'express-session'
+  },
+  'react': {
+    '--use-router': 'react-router-dom',
+    '--use-material-ui': '@material-ui/core'
   }
 }
