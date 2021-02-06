@@ -2,7 +2,6 @@ import os
 import sys
 import numpy
 import json
-
 from globals import *
 from generator import Generator
 from frameworks.express_generator import ExpressGenerator
@@ -18,7 +17,7 @@ class App:
     self.flags = {}
   
   def check_dependencies(self):
-    #TODO: Remove platform check when implementing support for other platforms
+    # TODO: Remove platform check when implementing support for other platforms
     if sys.platform != "linux":
       print("Support for macOS and Windows is coming soon")
       exit(1)
@@ -48,12 +47,10 @@ class App:
   def print_usage(self):
     print("Usage: /usr/bin/python3 marble.py [framework] [project name] [...flags]")
   
-  def is_valid_framework(self, framework_arg) -> int:
-    if (FRAMEWORKS.__contains__(framework_arg)):
-      return 0
-    return 1
+  def is_valid_framework(self, framework_arg) -> bool:
+    return FRAMEWORKS.__contains__(framework_arg)
   
-  def process_flags(self, flag_args) -> int:
+  def process_flags(self, flag_args):
     if len(flag_args) > 0:
       last_flag = ''
       for arg in flag_args:
@@ -67,15 +64,50 @@ class App:
             last_flag = ''
           else:
             pass
-    return 0
+    return
+  
+  def generate_config(self):
+    print("Generating Marble configuration in: " + CONFIG_PATH)
+    try:
+      config_template = open(os.path.join(PROGRAM_PATH, 'templates', 'marble.config.json'), 'r')
+      config_template_content = config_template.read()
+      config_template.close()
+    except:
+      print("Unable to read default configuration template")
+      exit(1)
+    
+    try:
+      config_target = open(CONFIG_PATH, 'w+')
+      config_target.write(config_template_content)
+      config_target.close()
+    except:
+      print("Unable to generate configuration file")
+      exit(1)
+    
+    print("Done")
+    exit(0)
 
   def main(self) -> int:
     self.check_dependencies()
     self.check_config_path()
-    if len(sys.argv) >= 3:
-
+    if len(sys.argv) == 2:
+      if sys.argv[1] == '--generate-config':
+        if not os.path.exists(CONFIG_PATH):
+          exit(self.generate_config())
+        else:
+          print("Existing Marble configuration exists in: " + CONFIG_PATH)
+          print("Do you want to overwrite it with the default configuration file?")
+          overwrite_decision = input("[y/N]: ")
+          if overwrite_decision.lower().startswith('y'):
+            exit(self.generate_config())
+          else:
+            exit(0)
+      else:
+        self.print_usage()
+        exit(1)
+    elif len(sys.argv) >= 3:
       # Get framework option
-      if self.is_valid_framework(sys.argv[1]) == 0:
+      if self.is_valid_framework(sys.argv[1]) == True:
         self.framework = sys.argv[1]
       else:
         print("Framework not supported: " + sys.argv[1])
@@ -93,13 +125,12 @@ class App:
 
       # Get project build options via flags
       flag_args = numpy.array(sys.argv[1:])
-      if self.process_flags(flag_args) == 0:
-        if self.framework == 'express':
-          exit(ExpressGenerator(self.config, self.properties, self.flags).main())
+      self.process_flags(flag_args)
+      if self.framework == 'express':
+        exit(ExpressGenerator(self.config, self.properties, self.flags).main())
     else:
-      if self.process_flags(numpy.array(sys.argv[1:])) == 1:
-        self.print_usage()
-        exit(1)
+      self.print_usage()
+      exit(1)
     exit(0)
 
 

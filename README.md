@@ -5,7 +5,27 @@ Marble is a tool to generate templates for numerous types of projects (mostly we
 
 The generators are currently intended for use on Linux only (it relies on UNIX shell tools like jq). Compatibility with macOS and Windows to be implemented and tested at a later date.
 
-### Currently supported project types
+## Usage
+
+### Generate configuration file
+A configuration file is necessary to determine where your projects are generated in. Options like preferred package manager and default packages are not implemented yet.
+
+```
+python3 main.py --generate-config
+```
+
+### Generate a project
+General format for project generation:
+```
+python3 main.py [framework] [project_name] [...flags]
+```
+
+Example:
+```
+python3 main.py express todo-list-app --use-nodemon
+```
+
+## Currently supported project types
 - Express
 
 ## TODO

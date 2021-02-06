@@ -1,6 +1,8 @@
 import os
 
 
+PROGRAM_PATH = os.getcwd()
+
 DEPENDENCIES = {
   'jq': {
     'linux': '/usr/bin/jq'
@@ -30,5 +32,12 @@ FLAGS = {
       '--use-nodemon': 0,
       '--use-express-session': 0
     }
+  }
+}
+
+FRAMEWORK_PACKAGE_FLAGS = {
+  'express': {
+    '--use-nodemon': 'nodemon',
+    '--use-express-session': 'express-session'
   }
 }

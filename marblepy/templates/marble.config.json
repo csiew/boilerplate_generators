@@ -1,0 +1,15 @@
+{
+  "info": {
+    "version": "0.1",
+    "last_change": ""
+  },
+  "properties": {
+    "projects_directory": "$HOME/Projects",
+    "preferred_node_package_manager": "yarn"
+  },
+  "defaults": {
+    "express": {
+      "use_nodemon": true
+    }
+  }
+}
