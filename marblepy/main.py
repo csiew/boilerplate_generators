@@ -52,18 +52,41 @@ class App:
     return FRAMEWORKS.__contains__(framework_arg)
   
   def process_flags(self, flag_args):
+    last_flag_template = {
+      'flag': '',
+      'arg_count': 0
+    }
     if len(flag_args) > 0:
-      last_flag = ''
+      last_flag = {
+        'flag': '',
+        'arg_count': 0
+      }
       for arg in flag_args:
         if (arg.startswith('--', 0)):
-          self.flags[arg] = ''
+          # Reset flag parameter check when seeing new flag
+          last_flag = last_flag_template.copy()
+          self.flags[arg] = []
+          # Check if flag is expecting values
+          # If so, prepare to read in flag parameter values
           if (arg in FLAGS['general'] and FLAGS['general'][arg] != 0) or (arg in FLAGS['frameworks'][self.framework] and FLAGS['frameworks'][self.framework][arg] != 0):
-            last_flag = arg
+            last_flag['flag'] = arg
+            if arg in FLAGS['general'] and FLAGS['general'][arg] != 0:
+              last_flag['arg_count'] = FLAGS['general'][arg]
+            elif arg in FLAGS['frameworks'][self.framework] and FLAGS['frameworks'][self.framework][arg] != 0:
+              last_flag['arg_count'] = FLAGS['frameworks'][self.framework][arg]
         else:
-          if len(last_flag) > 0 and last_flag in self.flags:
-            self.flags[last_flag] = arg
-            last_flag = ''
+          # Append flag parameter values
+          if len(last_flag['flag']) > 0 and last_flag['flag'] in self.flags:
+            self.flags[last_flag['flag']].append(arg)
+            last_flag['flag'] = ''
+            # If expecting parameters, reduce parameters-to-expect count
+            if last_flag['arg_count'] > 0:
+              last_flag['arg_count'] -= 1
+              # Stop checking for parameters for this flag when reaching 0
+              if last_flag['arg_count'] == 0:
+                last_flag = last_flag_template.copy()
           else:
+            # Orphan parameter detected
             pass
     return
   

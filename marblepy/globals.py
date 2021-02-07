@@ -1,7 +1,7 @@
 import os
 
 
-PROGRAM_PATH = os.getcwd()
+PROGRAM_PATH = '/'.join([os.getcwd(), 'marblepy'])
 
 DEPENDENCIES = {
   'jq': {
