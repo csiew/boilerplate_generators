@@ -20,14 +20,17 @@ General format for project generation:
 python3 marblepy/main.py [framework] [project_name] [...flags]
 ```
 
-Example:
+Examples:
 ```
+python3 marblepy/main.py express todo-list-app
 python3 marblepy/main.py express todo-list-app --use-nodemon
+python3 marblepy/main.py express todo-list-app --use-nodemon --use-express-session --install-packages marked ejs
 ```
 
 ### Flags
 | Framework | Flag | Value | Description |
 |-----|-----|-----|-----|
+| *Node projects (Express, React, Vue, etc)* | `--install-packages`      | *Package names (space separated)* | Install additional packages. |
 | `express` | `--use-nodemon`           | *none*  | Install and enable `nodemon` for automatic runtime restarts when making changes to source code. |
 |           | `--use-express-session`   | *none*  | Install `express-session` to enable login sessions for your app. |
 | `react`   | `--use-react-router-dom`  | *none*  | Install and enable `react-router-dom`. |

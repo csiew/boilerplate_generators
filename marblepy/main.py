@@ -78,7 +78,6 @@ class App:
           # Append flag parameter values
           if len(last_flag['flag']) > 0 and last_flag['flag'] in self.flags:
             self.flags[last_flag['flag']].append(arg)
-            last_flag['flag'] = ''
             # If expecting parameters, reduce parameters-to-expect count
             if last_flag['arg_count'] > 0:
               last_flag['arg_count'] -= 1

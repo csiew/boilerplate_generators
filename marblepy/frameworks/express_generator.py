@@ -54,7 +54,13 @@ class ExpressGenerator(Generator):
       # TODO: Deposit README instructions for completing setup of express-session
 
       # Install additional packages
-      # TODO: Get package names from "--install-packages" flag
+      if '--install-packages' in self.flags:
+        pkg_install_cmd = ["yarnpkg", "add"]
+        for pkg_name in self.flags['--install-packages']:
+          pkg_install_cmd.append(pkg_name)
+        print(pkg_install_cmd)
+        proc_pkg_install_additional = subprocess.Popen(pkg_install_cmd)
+        proc_pkg_install_additional.wait()
 
       # Add scripts
       with open(os.path.join(self.project_path, 'package.json'), 'r') as f_package_json:

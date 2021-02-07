@@ -41,7 +41,13 @@ class ReactGenerator(Generator):
         proc_pkg_install.wait()
 
       # Install additional packages
-      # TODO: Get package names from "--install-packages" flag
+      if '--install-packages' in self.flags:
+        pkg_install_cmd = ["yarnpkg", "add"]
+        for pkg_name in self.flags['--install-packages']:
+          pkg_install_cmd.append(pkg_name)
+        print(pkg_install_cmd)
+        proc_pkg_install_additional = subprocess.Popen(pkg_install_cmd)
+        proc_pkg_install_additional.wait()
 
       # TODO: Replace App.js with template that uses router components
       # os.chdir(os.path.join(self.project_path, 'src'))
