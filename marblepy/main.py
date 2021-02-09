@@ -19,8 +19,8 @@ class App:
   
   def check_dependencies(self):
     # TODO: Remove platform check when implementing support for other platforms
-    if sys.platform != "linux":
-      print("Support for macOS and Windows is coming soon")
+    if sys.platform == "win32":
+      print("Support for Windows is coming soon")
       exit(1)
     
     for dep_name, dep_path in DEPENDENCIES.items():
@@ -46,7 +46,8 @@ class App:
       exit(1)
   
   def print_usage(self):
-    print("Usage: /usr/bin/python3 marble.py [framework] [project name] [...flags]")
+    print("Usage:\t\tpython3 marblepy/main.py [framework] [project name] [...flags]")
+    print("Example:\tpython3 marblepy/main.py express test-app --use-nodemon --install-packages ejs marked")
   
   def is_valid_framework(self, framework_arg) -> bool:
     return FRAMEWORKS.__contains__(framework_arg)
@@ -112,9 +113,16 @@ class App:
 
   def main(self) -> int:
     self.check_dependencies()
-    self.check_config_path()
     if len(sys.argv) == 2:
-      if sys.argv[1] == '--generate-config':
+      if sys.argv[1] == '--help' or sys.argv[1] == '-h':
+        print("Marble boilerplate generator\n")
+        self.print_usage()
+        print("\nFramework flags:")
+        print("--install-packages\tInstall packages listed after flag")
+        print("\nOther flags:")
+        print("--help\t\t\tPrint this help menu")
+        print("--generate-config\tGenerate the Marble config file")
+      elif sys.argv[1] == '--generate-config':
         if not os.path.exists(CONFIG_PATH):
           exit(self.generate_config())
         else:
@@ -129,6 +137,7 @@ class App:
         self.print_usage()
         exit(1)
     elif len(sys.argv) >= 3:
+      self.check_config_path()
       # Get framework option
       if self.is_valid_framework(sys.argv[1]) == True:
         self.framework = sys.argv[1]

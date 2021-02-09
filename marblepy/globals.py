@@ -5,10 +5,12 @@ PROGRAM_PATH = '/'.join([os.getcwd(), 'marblepy'])
 
 DEPENDENCIES = {
   'jq': {
-    'linux': '/usr/bin/jq'
+    'linux': '/usr/bin/jq',
+    'darwin': '/usr/local/opt/jq'
   },
   'yarn': {
-    'linux': '/usr/bin/yarnpkg'
+    'linux': '/usr/bin/yarnpkg',
+    'darwin': '/usr/local/opt/yarn'
   }
 }
 
