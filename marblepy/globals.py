@@ -8,9 +8,9 @@ DEPENDENCIES = {
     'linux': '/usr/bin/jq',
     'darwin': '/usr/local/opt/jq'
   },
-  'yarn': {
-    'linux': '/usr/bin/yarnpkg',
-    'darwin': '/usr/local/opt/yarn'
+  'npm': {
+    'linux': '/usr/bin/npm',
+    'darwin': '/usr/local/opt/npm'
   }
 }
 

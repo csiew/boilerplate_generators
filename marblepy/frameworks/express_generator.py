@@ -38,13 +38,13 @@ class ExpressGenerator(Generator):
     package_json_content = None
 
     # Initialise Node project
-    proc_yarn_init = subprocess.Popen(["yarnpkg", "init", "-y"])
+    proc_yarn_init = subprocess.Popen(["npm", "init", "-y"])
     proc_yarn_init.wait()
 
     # Customise project
     if os.path.exists(os.path.join(self.project_path, 'package.json')):
       # Install default packages
-      pkg_install_cmd = ["yarnpkg", "add", "express"]
+      pkg_install_cmd = ["npm", "install", "express"]
       for pkg_flag_key, pkg_flag_value in FRAMEWORK_PACKAGE_FLAGS['express'].items():
         if pkg_flag_key in self.flags:
           pkg_install_cmd.append(pkg_flag_value)
@@ -55,7 +55,7 @@ class ExpressGenerator(Generator):
 
       # Install additional packages
       if '--install-packages' in self.flags:
-        pkg_install_cmd = ["yarnpkg", "add"]
+        pkg_install_cmd = ["npm", "install"]
         for pkg_name in self.flags['--install-packages']:
           pkg_install_cmd.append(pkg_name)
         print(pkg_install_cmd)

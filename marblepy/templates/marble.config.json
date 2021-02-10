@@ -4,8 +4,7 @@
     "last_change": ""
   },
   "properties": {
-    "projects_directory": "$HOME/Projects",
-    "preferred_node_package_manager": "yarn"
+    "projects_directory": "$HOME/Projects"
   },
   "defaults": {
     "express": {
