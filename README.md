@@ -1,5 +1,5 @@
 # Marble
-> **NOTE:** Marble is under active development. It currently only supports creating Express projects using a shell script. See the `marblepy` directory for progress on the *unified version* of Marble that will support numerous frameworks.
+> **NOTE:** Marble is under active development. The frontend, `marble-vue` is still a work in progress. Please try `marblepy` if you want to actually generate a project!
 
 Marble is a tool to generate templates for numerous types of projects (mostly web development). These will create the project directory, setup the build environment, and install packages/libraries.
 
