@@ -1,30 +1,23 @@
 <template>
-  <div class="container">
-    <div class="split-view">
-      <div class="list split-view-list">
-        <div class="toolbar">
-          <div class="toolbar-group">
-            <h2>Frameworks</h2>
-          </div>
+  <div class="container container-centered container-m padding-l">
+    <div class="card card-list list">
+      <div class="toolbar">
+        <div class="toolbar-group">
+          <h2>Frameworks</h2>
         </div>
-        <FrameworkListItem v-for="framework in Object.values(frameworks)" v-bind:key="framework.id" v-bind:framework="framework" v-bind:selected="selectedFrameworkId === framework.id ? true : false" @handle-select="handleSelectFramework" />
       </div>
-      <div class="split-view-content">
-        <FrameworkConfiguration v-if="selectedFrameworkId.length > 0" v-bind:framework="frameworks[selectedFrameworkId]" />
-      </div>
+      <FrameworkListItem v-for="framework in Object.values(frameworks)" v-bind:key="framework.id" v-bind:framework="framework" v-bind:selected="selectedFrameworkId === framework.id ? true : false" @handle-select="handleSelectFramework" />
     </div>
   </div>
 </template>
 
 <script>
 import FrameworkListItem from '@/components/FrameworkListItem.vue'
-import FrameworkConfiguration from '@/components/FrameworkConfiguration.vue'
 
 export default {
-  name: 'Home',
+  name: 'FrameworkChooser',
   components: {
-    FrameworkListItem,
-    FrameworkConfiguration
+    FrameworkListItem
   },
   data() {
     return {
@@ -60,9 +53,7 @@ export default {
   },
   methods: {
     handleSelectFramework(id) {
-      if (Object.keys(this.frameworks).includes(id) && this.selectedFrameworkId != id) {
-        this.selectedFrameworkId = id
-      }
+      this.$emit('handle-select', id)
     }
   }
 }

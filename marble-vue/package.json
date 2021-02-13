@@ -23,7 +23,8 @@
     "babel-eslint": "^10.1.0",
     "electron": "^11.2.2",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0-0"
+    "eslint-plugin-vue": "^7.0.0-0",
+    "vue-cli-plugin-vuetify": "~2.1.0"
   },
   "eslintConfig": {
     "root": true,
